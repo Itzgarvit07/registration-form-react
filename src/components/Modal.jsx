@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Checkbox } from "@mui/material";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -16,10 +18,24 @@ const style = {
   p: 4,
 };
 
-export default function ConfirmationModal({ open, setOpen, setConfirmation }) {
+export default function ConfirmationModal({
+  open,
+  setOpen,
+  setConfirmation,
+  confirmation,
+}) {
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleChange = (event) => {
+    setConfirmation(!confirmation);
+  };
+  useEffect(() => {
+    console.log(confirmation);
+    if (confirmation) {
+      setOpen(false);
+    }
+  }, [confirmation]);
 
   return (
     <div>
@@ -51,13 +67,18 @@ export default function ConfirmationModal({ open, setOpen, setConfirmation }) {
             </li>
             <li>Fees once paid is not refundable.</li>
           </ul>
-          <Button
+          {/* <Button
             onClick={() => {
               setConfirmation(true);
             }}
           >
             I agree
-          </Button>
+          </Button> */}
+          <Checkbox
+            checked={confirmation}
+            onChange={handleChange}
+            inputProps={{ "aria-label": "controlled" }}
+          />
         </Box>
       </Modal>
     </div>
