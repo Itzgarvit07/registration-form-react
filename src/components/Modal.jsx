@@ -67,18 +67,14 @@ export default function ConfirmationModal({
             </li>
             <li>Fees once paid is not refundable.</li>
           </ul>
-          {/* <Button
-            onClick={() => {
-              setConfirmation(true);
-            }}
-          >
-            I agree
-          </Button> */}
-          <Checkbox
-            checked={confirmation}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
+          <Box className="flex justify-start items-center">
+            <Checkbox
+              checked={confirmation}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />
+            <Typography fontWeight={"bold"}>I agree</Typography>
+          </Box>
         </Box>
       </Modal>
     </div>

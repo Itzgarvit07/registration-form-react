@@ -3,17 +3,14 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   Switch,
-  TextField,
 } from "@mui/material";
 import HeadingBox from "./components/HeadingBox";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import StyleTextfield from "./components/StyledTextfield";
 import ForwardedTextInput from "./components/StyledTextfield";
 import {
   analyticsOptions,
@@ -23,9 +20,9 @@ import {
 } from "./Constant";
 import ConfirmationModal from "./components/Modal";
 import ControlledRadioButtonsGroup from "./components/StyledRadioBtn";
-import FileUploadForm from "./components/InputFile";
-
-// import { useForm } from "react-hook-form";
+import InputFile from "./components/InputFile";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import StyledButton from "./components/StyledButton";
 
 const RegisterForm = () => {
   const [currentSection, setCurrentSection] = useState(1);
@@ -33,8 +30,6 @@ const RegisterForm = () => {
   const [permanentAddress, setPermanentAddress] = useState(false);
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
-  const [aadharCardBack, setAadharCardBack] = useState("");
-  const [aadharCardFront, setAadharCardFront] = useState("");
   const methods = useForm();
   const { handleSubmit, register, watch, formState, setValue, getValues } =
     methods;
@@ -120,62 +115,7 @@ const RegisterForm = () => {
   useEffect(() => {
     confirmation && setOpen(false);
   }, [open]);
-  // useEffect(() => {
-  //   const aadharCardFrontFiles = methods.watch("aadharCardfront")[0];
-  //   const aadharCardBackFiles = methods.watch("aadharCardback");
 
-  //   console.log(aadharCardFrontFiles, aadharCardBackFiles, "134");
-
-  //   // if (aadharCardFrontFiles?.length === 0) {
-  //   //   alert("Select files");
-  //   // } else {
-  //   const formData = new FormData();
-  //   // formData.append("name", "Suhani");
-  //   // console.log(formData);
-
-  //   // const temp = {};
-  //   // temp["name"] = "Suhani";
-  //   // console.log(temp);
-
-  //   // Append front files
-  //   // for (let i = 0; i < aadharCardFrontFiles.length; i++) {
-  //   //   temp["files"] = aadharCardFrontFiles[0];
-  //   // }
-
-  //   // for (let i = 0; i < aadharCardFrontFiles.length; i++) {
-  //   formData.append("files", aadharCardFrontFiles);
-  //   // }
-
-  //   // // Append back files
-  //   // for (let i = 0; i < aadharCardBackFiles.length; i++) {
-  //   //   temp["files"] = aadharCardBackFiles[0];
-  //   // }
-  //   // console.log(aadharCardFrontFiles[0]);
-  //   console.log("FormData:", formData);
-
-  //   // Send the form data to the server
-  //   fetch("http://localhost:8080/upload", {
-  //     method: "POST",
-  //     body: JSON.stringify(formData),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("Success:", data);
-  //       // Handle successful response from the server
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //       // Handle errors
-  //     });
-  //   // }
-  // }, [methods.watch("aadharCardfront")]);
-
-  // console.log(methods.watch("aadharCardfront"), "l");
   return (
     <FormProvider {...methods}>
       <Box
@@ -260,69 +200,19 @@ const RegisterForm = () => {
                   required: "dob is Required",
                 })}
               />
-              {/* //AadharCard */}
-              {/* <FileUploadForm /> */}
-              {/* <label htmlFor="">AadharCard</label>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "baseline",
-                  gap: "10px",
-                }}
-              >
-                <ForwardedTextInput
-                  // label="Aadhaar Card"
-                  type="file"
-                  // error={errors?.dob ? true : false}
-                  helperText={"Aadhar Card Front"}
-                  placeholder="Aadhar Card"
-                  // onChange={(e) => {
-                  //   setAadharCardFront(e.target.files[0]);
-                  // }}
-                  isRequired
-                  {...register("aadharCardfront", {
-                    required: "aadharCard is Required",
-                  })}
-                />
-                <ForwardedTextInput
-                  // label="Aadhaar Card/"
-                  type="file"
-                  // error={errors?.dob ? true : false}
-                  // helperText={errors?.dob?.message}
-                  placeholder="Aadhar Card"
-                  helperText={"Aadhar Card Back"}
-                  // onChange={(e) => {
-                  //   setAadharCardBack(e.target.files[0]);
-                  // }}
-                  isRequired
-                  {...register("aadharCardback", {
-                    required: "aadharCard is Required",
-                  })}
-                />
-                {/* <button onclick={upoloadFile}>Upload</button> */}
-              {/* </Box> */}
-              {/* // */}
+
+              <InputFile />
               <Button
                 sx={{ border: "1px solid black" }}
                 onClick={handleNextButton}
               >
                 Next{" "}
               </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
+              <StyledButton
+                label={"Save and next"}
                 onClick={handleData}
-                type="submit"
-              >
-                Save and next
-              </Button>
+                type={"submit"}
+              />
             </Box>
           )}
           {/* //Residental Detail */}
@@ -337,7 +227,11 @@ const RegisterForm = () => {
                 padding: "10px",
               }}
             >
-              <HeadingBox heading={"Parent / Guardian Details"} />
+              <HeadingBox
+                onClick={handlePrevButton}
+                prevIcon
+                heading={"Parent / Guardian Details"}
+              />
               <ForwardedTextInput
                 label="Parent / Guardian / Spouse Name"
                 type="text"
@@ -367,26 +261,12 @@ const RegisterForm = () => {
               >
                 Next{" "}
               </Button>
-              <Button
-                sx={{ border: "1px solid black" }}
-                onClick={handlePrevButton}
-              >
-                Back{" "}
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
+
+              <StyledButton
+                label={"Save and next"}
                 onClick={handleData}
-                type="submit"
-              >
-                Save and next
-              </Button>
+                type={"submit"}
+              />
             </Box>
           )}
           {/* educational detail */}
@@ -402,7 +282,11 @@ const RegisterForm = () => {
                   padding: "10px",
                 }}
               >
-                <HeadingBox heading={"Residential Details"} />
+                <HeadingBox
+                  onClick={handlePrevButton}
+                  prevIcon
+                  heading={"Residential Details"}
+                />
                 <ForwardedTextInput
                   label="Local Address"
                   type="text"
@@ -442,26 +326,11 @@ const RegisterForm = () => {
                 >
                   Next{" "}
                 </Button>
-                <Button
-                  sx={{ border: "1px solid black" }}
-                  onClick={handlePrevButton}
-                >
-                  Back{" "}
-                </Button>
-                <Button
-                  sx={{
-                    backgroundColor: "blue",
-                    color: "white",
-                    padding: "10px",
-                    "&:hover": {
-                      color: "blue",
-                    },
-                  }}
+                <StyledButton
+                  label={"Save and next"}
                   onClick={handleData}
-                  type="submit"
-                >
-                  Save and next
-                </Button>
+                  type={"submit"}
+                />
               </Box>
             </>
           )}
@@ -478,7 +347,11 @@ const RegisterForm = () => {
                   marginBottom: "10px",
                 }}
               >
-                <HeadingBox heading={"Educational Details"} />
+                <HeadingBox
+                  onClick={handlePrevButton}
+                  prevIcon
+                  heading={"Educational Details"}
+                />
                 <ControlledRadioButtonsGroup
                   label="Are u a"
                   name="eduDesignation"
@@ -646,42 +519,20 @@ const RegisterForm = () => {
               >
                 Terms & Conditions
               </a>
-              <Button
-                sx={{ border: "1px solid black" }}
-                onClick={handlePrevButton}
-              >
-                Back{" "}
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  width: "100%",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
-                onClick={handleData}
-                type="submit"
-              >
-                Submit
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  width: "100%",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
-                onClick={getData}
-                type="submit"
-              >
-                getData
-              </Button>
+              <Box className="flex flex-col justify-start items-center w-full gap-4 p-3">
+                <StyledButton
+                  label={"Save and next"}
+                  onClick={handleData}
+                  type={"submit"}
+                  width={"100%"}
+                />
+                <StyledButton
+                  onClick={getData}
+                  type="submit"
+                  label={"Get Data"}
+                  width={"100%"}
+                />
+              </Box>
             </>
           )}
         </form>
