@@ -4,7 +4,7 @@ export const User =
       email: 'divya@mygets.co.nz',
       phoneNo: 1234512345,
       gender: 'female',
-      dob: '2022-10-29T00:00:00.000Z',
+      dob: '2022-10-29',
       parentName: 'wrwwr',
       parentNo: 1234512345,
       localAddress: 'juuyfyyfufu',
