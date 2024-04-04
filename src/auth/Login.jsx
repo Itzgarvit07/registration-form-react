@@ -16,16 +16,16 @@ function Login() {
     })
   return (
     <Box sx={{height:"100vh", display:"flex",alignItems:"center",justifyContent:"center"}}>
-    <Box sx={{display:"flex",border:"solid 2px black",borderRadius:"20px"}}>
-        <Box sx={{height:"500px",width:"400px",marginRight:"20px",}}>
-        <img className='w-full h-full object-cover rounded-l-2xl' src="./login-pageimg.jpg" alt="" />
+    <Box className="md:border-solid border-2 border-gray-300 border-none" sx={{display:"flex",borderRadius:"20px"}}>
+        <Box className="md:block hidden" sx={{height:"500px",width:"400px",padding:"20px",borderRight:"1px solid lightgray"}}>
+        <img className='w-full h-full object-contain  rounded-l-2xl' src="./login-page-logo-1.png" alt="" />
         </Box>
-   <Box className="p-7">
+   <Box className="px-4 py-7 md:w-auto">
     <Typography variant='h4' className='text-center font-bold '>
 Login
     </Typography>
     <form onSubmit={handleSubmit(handleLogin)} noValidate>
-    <Box className="p-9 flex flex-col justify-center items-center gap-3">
+    <Box className="py-9 px-6 flex flex-col justify-center items-center gap-3">
 
     <ForwardedTextInput
                 label="Email"
@@ -50,7 +50,7 @@ Login
                 })}
               /> 
               <Typography color={"blue"} >Forgot password</Typography>
-              <StyledButton type={"submit"} label={"Submit"} width={"100%"}/>
+              <StyledButton sx={{marginTop:"15px"}} type={"submit"} label={"Submit"} width={"100%"}/>
     </Box>
 
     </form>

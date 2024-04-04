@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Newpassword from "./auth/Newpassword";
+// import Newpassword from "./auth/Newpassword";
 
 // import RegisterForm from "./RegisterForm";
-// import Login from "./auth/Login";
+import Login from "./auth/Login";
 // import Forgotpassword from "./auth/Forgotpassword";
 // import Profile from "./Profile";  
 // import Profile from "./Profile-section/Profile";
@@ -13,11 +13,11 @@ function App() {
   return (
     <>
       {/* <RegisterForm /> */}
-      {/* <Login/> */}
+      <Login/>
       {/* <Profile/> */}
       {/* <Profile/> */}
       {/* <Forgotpassword/> */}
-      <Newpassword/>
+      {/* <Newpassword/> */}
     </>
   );
 }

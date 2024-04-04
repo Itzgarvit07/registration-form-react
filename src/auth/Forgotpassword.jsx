@@ -16,16 +16,16 @@ function Forgotpassword() {
     })
   return (
     <Box sx={{height:"100vh", display:"flex",alignItems:"center",justifyContent:"center"}}>
-    <Box sx={{display:"flex",border:"solid 2px black",borderRadius:"20px"}}>
-        <Box sx={{height:"570px",width:"400px",marginRight:"20px",}}>
-        <img className='w-full h-full object-cover rounded-l-2xl' src="./login-pageimg.jpg" alt="" />
+    <Box className="md:border-solid border-2 border-gray-300 border-none" sx={{display:"flex",borderRadius:"20px"}}>
+        <Box className="md:block hidden" sx={{height:"570px",width:"400px",padding:"20px",borderRight:"1px solid lightgray"}}>
+        <img className='w-full h-full object-contain rounded-l-2xl' src="./login-page-logo-1.png" alt="" />
         </Box>
-   <Box className="p-7">
+   <Box className="px-4 py-7 md:w-auto">
     <Typography variant='h4' className='text-center font-bold '>
 Forgot Password
     </Typography>
     <form onSubmit={handleSubmit(handleLogin)} noValidate>
-    <Box className="p-9 flex flex-col justify-center items-center gap-3">
+    <Box className="py-9 px-6 flex flex-col justify-center items-center gap-3">
 
     <ForwardedTextInput
                 label="Email"
