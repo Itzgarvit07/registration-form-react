@@ -3,17 +3,14 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   Switch,
-  TextField,
 } from "@mui/material";
 import HeadingBox from "./components/HeadingBox";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import StyleTextfield from "./components/StyledTextfield";
 import ForwardedTextInput from "./components/StyledTextfield";
 import {
   analyticsOptions,
@@ -23,8 +20,9 @@ import {
 } from "./Constant";
 import ConfirmationModal from "./components/Modal";
 import ControlledRadioButtonsGroup from "./components/StyledRadioBtn";
-
-// import { useForm } from "react-hook-form";
+import InputFile from "./components/InputFile";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import StyledButton from "./components/StyledButton";
 
 const RegisterForm = () => {
   const [currentSection, setCurrentSection] = useState(1);
@@ -99,8 +97,8 @@ const RegisterForm = () => {
     setOpen(true);
   };
 
-  console.log(watch());
-  console.log(methods.watch());
+  console.log(watch(), "135");
+  console.log(methods.watch(), "136");
 
   useEffect(() => {
     if (permanentAddress === true) {
@@ -117,6 +115,7 @@ const RegisterForm = () => {
   useEffect(() => {
     confirmation && setOpen(false);
   }, [open]);
+
   return (
     <FormProvider {...methods}>
       <Box
@@ -187,6 +186,8 @@ const RegisterForm = () => {
                 name="gender"
                 defaultValue=""
                 data={genderOptions}
+                isRequired={true}
+                rules={{ required: "Please select an option" }}
               />
               <ForwardedTextInput
                 label="DOB"
@@ -199,59 +200,19 @@ const RegisterForm = () => {
                   required: "dob is Required",
                 })}
               />
-              <label htmlFor="">AadharCard</label>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "baseline",
-                  gap: "10px",
-                }}
-              >
-                <ForwardedTextInput
-                  // label="Aadhaar Card"
-                  type="file"
-                  // error={errors?.dob ? true : false}
-                  helperText={"Aadhar Card Front"}
-                  placeholder="Aadhar Card"
-                  isRequired
-                  {...register("aadharCard", {
-                    required: "aadharCard is Required",
-                  })}
-                />
-                <ForwardedTextInput
-                  // label="Aadhaar Card/"
-                  type="file"
-                  // error={errors?.dob ? true : false}
-                  // helperText={errors?.dob?.message}
-                  placeholder="Aadhar Card"
-                  helperText={"Aadhar Card Back"}
-                  isRequired
-                  {...register("aadharCard", {
-                    required: "aadharCard is Required",
-                  })}
-                />
-              </Box>
+
+              <InputFile />
               <Button
                 sx={{ border: "1px solid black" }}
                 onClick={handleNextButton}
               >
                 Next{" "}
               </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
+              <StyledButton
+                label={"Save and next"}
                 onClick={handleData}
-                type="submit"
-              >
-                Save and next
-              </Button>
+                type={"submit"}
+              />
             </Box>
           )}
           {/* //Residental Detail */}
@@ -266,7 +227,11 @@ const RegisterForm = () => {
                 padding: "10px",
               }}
             >
-              <HeadingBox heading={"Parent / Guardian Details"} />
+              <HeadingBox
+                onClick={handlePrevButton}
+                prevIcon
+                heading={"Parent / Guardian Details"}
+              />
               <ForwardedTextInput
                 label="Parent / Guardian / Spouse Name"
                 type="text"
@@ -296,26 +261,12 @@ const RegisterForm = () => {
               >
                 Next{" "}
               </Button>
-              <Button
-                sx={{ border: "1px solid black" }}
-                onClick={handlePrevButton}
-              >
-                Back{" "}
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
+
+              <StyledButton
+                label={"Save and next"}
                 onClick={handleData}
-                type="submit"
-              >
-                Save and next
-              </Button>
+                type={"submit"}
+              />
             </Box>
           )}
           {/* educational detail */}
@@ -331,7 +282,11 @@ const RegisterForm = () => {
                   padding: "10px",
                 }}
               >
-                <HeadingBox heading={"Residential Details"} />
+                <HeadingBox
+                  onClick={handlePrevButton}
+                  prevIcon
+                  heading={"Residential Details"}
+                />
                 <ForwardedTextInput
                   label="Local Address"
                   type="text"
@@ -371,26 +326,11 @@ const RegisterForm = () => {
                 >
                   Next{" "}
                 </Button>
-                <Button
-                  sx={{ border: "1px solid black" }}
-                  onClick={handlePrevButton}
-                >
-                  Back{" "}
-                </Button>
-                <Button
-                  sx={{
-                    backgroundColor: "blue",
-                    color: "white",
-                    padding: "10px",
-                    "&:hover": {
-                      color: "blue",
-                    },
-                  }}
+                <StyledButton
+                  label={"Save and next"}
                   onClick={handleData}
-                  type="submit"
-                >
-                  Save and next
-                </Button>
+                  type={"submit"}
+                />
               </Box>
             </>
           )}
@@ -407,46 +347,80 @@ const RegisterForm = () => {
                   marginBottom: "10px",
                 }}
               >
-                <HeadingBox heading={"Educational Details"} />
+                <HeadingBox
+                  onClick={handlePrevButton}
+                  prevIcon
+                  heading={"Educational Details"}
+                />
                 <ControlledRadioButtonsGroup
                   label="Are u a"
                   name="eduDesignation"
                   defaultValue={educationOptions[0].value}
                   data={educationOptions}
                 />
-                <ForwardedTextInput
-                  label="Last Attained Qualification"
-                  type="text"
-                  error={errors?.qualification ? true : false}
-                  helperText={errors?.qualification?.message}
-                  placeholder="Your latest educational degree / diploma"
-                  isRequired
-                  {...register("qualification", {
-                    required: "qualification is Required",
-                  })}
-                />
-                <ForwardedTextInput
-                  label="Year"
-                  type="text"
-                  error={errors?.year ? true : false}
-                  helperText={errors?.year?.message}
-                  placeholder="Completion year"
-                  isRequired
-                  {...register("year", {
-                    required: "year is Required",
-                  })}
-                />
-                <ForwardedTextInput
-                  label="College / University"
-                  type="text"
-                  error={errors?.college ? true : false}
-                  helperText={errors?.college?.message}
-                  placeholder="College / University"
-                  isRequired
-                  {...register("college", {
-                    required: "college is Required",
-                  })}
-                />
+                {methods.watch("eduDesignation") === "student" && (
+                  <>
+                    <ForwardedTextInput
+                      label="Last Attained Qualification"
+                      type="text"
+                      error={errors?.qualification ? true : false}
+                      helperText={errors?.qualification?.message}
+                      placeholder="Your latest educational degree / diploma"
+                      isRequired
+                      {...register("qualification", {
+                        required: "qualification is Required",
+                      })}
+                    />
+                    <ForwardedTextInput
+                      label="Year"
+                      type="text"
+                      error={errors?.year ? true : false}
+                      helperText={errors?.year?.message}
+                      placeholder="Completion year"
+                      isRequired
+                      {...register("year", {
+                        required: "year is Required",
+                      })}
+                    />
+                    <ForwardedTextInput
+                      label="College / University"
+                      type="text"
+                      error={errors?.college ? true : false}
+                      helperText={errors?.college?.message}
+                      placeholder="College / University"
+                      isRequired
+                      {...register("college", {
+                        required: "college is Required",
+                      })}
+                    />
+                  </>
+                )}
+                {methods.watch("eduDesignation") === "workingProfessionals" && (
+                  <>
+                    <ForwardedTextInput
+                      label="Designation"
+                      type="text"
+                      error={errors?.designation ? true : false}
+                      helperText={errors?.designation?.message}
+                      placeholder="Designation"
+                      isRequired
+                      {...register("designation", {
+                        required: "designation is Required",
+                      })}
+                    />
+                    <ForwardedTextInput
+                      label="Company"
+                      type="text"
+                      error={errors?.company ? true : false}
+                      helperText={errors?.company?.message}
+                      placeholder="Company"
+                      isRequired
+                      {...register("company", {
+                        required: "company is Required",
+                      })}
+                    />
+                  </>
+                )}
               </Box>
               <Box
                 sx={{
@@ -545,42 +519,20 @@ const RegisterForm = () => {
               >
                 Terms & Conditions
               </a>
-              <Button
-                sx={{ border: "1px solid black" }}
-                onClick={handlePrevButton}
-              >
-                Back{" "}
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  width: "100%",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
-                onClick={handleData}
-                type="submit"
-              >
-                Submit
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  padding: "10px",
-                  width: "100%",
-                  "&:hover": {
-                    color: "blue",
-                  },
-                }}
-                onClick={getData}
-                type="submit"
-              >
-                getData
-              </Button>
+              <Box className="flex flex-col justify-start items-center w-full gap-4 p-3">
+                <StyledButton
+                  label={"Save and next"}
+                  onClick={handleData}
+                  type={"submit"}
+                  width={"100%"}
+                />
+                <StyledButton
+                  onClick={getData}
+                  type="submit"
+                  label={"Get Data"}
+                  width={"100%"}
+                />
+              </Box>
             </>
           )}
         </form>
@@ -588,6 +540,7 @@ const RegisterForm = () => {
           open={open}
           setOpen={setOpen}
           setConfirmation={setConfirmation}
+          confirmation={confirmation}
         />
       </Box>
     </FormProvider>
