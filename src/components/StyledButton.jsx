@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const StyledButton = ({ label, onClick, type ,width}) => {
+const StyledButton = ({ label, onClick, type ,width,sx}) => {
   return (
     <Button
       sx={{
+        ...sx,
         backgroundColor: "#007bff",
         color: "white",
         padding: "15px 10px",
