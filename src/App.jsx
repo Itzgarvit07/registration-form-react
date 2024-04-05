@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // import RegisterForm from "./RegisterForm";
 import Login from "./auth/Login";
+import Header from "./Header";
 // import Forgotpassword from "./auth/Forgotpassword";
 // import Profile from "./Profile";  
 // import Profile from "./Profile-section/Profile";
@@ -13,7 +14,8 @@ function App() {
   return (
     <>
       {/* <RegisterForm /> */}
-      <Login/>
+      {/* <Login/> */}
+      <Header/>
       {/* <Profile/> */}
       {/* <Profile/> */}
       {/* <Forgotpassword/> */}
